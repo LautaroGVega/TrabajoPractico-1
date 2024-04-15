@@ -1,11 +1,16 @@
-const Rectangulo = require('./Rectangulo'); // Importamos la clase Rectangulo
+const Cuadrado = require('./Cuadrado');
+const Circulo = require('./Circulo');
 
-// Definimos la clase AdaptadorCuadrado que actúa como adaptador para convertir Cuadrado en Rectangulo
-class AdaptadorCuadrado extends Rectangulo {
-  // Constructor que toma el lado del cuadrado
-  constructor(lado) {
-    super(lado, lado); // Llamamos al constructor de Rectangulo con el lado como ancho y alto para crear un Rectangulo con las mismas dimensiones
+class AdaptadorDeCuadrado extends Cuadrado {
+  constructor(forma) {
+    if (forma instanceof Cuadrado) {
+      super(forma.lado);
+    } else if (forma instanceof Circulo) {
+      super(forma.radio * Math.sqrt(2));
+    } else {
+      throw new Error('Forma inválida proporcionada.');
+    }
   }
 }
 
-module.exports = AdaptadorCuadrado; // Exportamos la clase AdaptadorCuadrado para poder usarla en otros archivos
+module.exports = AdaptadorCuadrado;
